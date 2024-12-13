@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="SpeechSecuritySystem.AdminDashboard"
+             Title="Admin Dashboard">
+
+    <ContentPage.Resources>
+        <Style x:Key="SidebarButtonStyle" TargetType="Button">
+            <Setter Property="BackgroundColor" Value="Transparent"/>
+            <Setter Property="TextColor" Value="White"/>
+            <Setter Property="FontSize" Value="16"/>
+            <Setter Property="Margin" Value="10,5"/>
+            <Setter Property="Padding" Value="20,15"/>
+            <Setter Property="HorizontalOptions" Value="Fill"/>
+        </Style>
+
+        <Style x:Key="ActiveSidebarButtonStyle" TargetType="Button" BasedOn="{StaticResource SidebarButtonStyle}">
+            <Setter Property="BackgroundColor" Value="#4a90e2"/>
+        </Style>
+    </ContentPage.Resources>
+
+    <Grid>
+        <!-- Background Image -->
+        <Image Source="comebg.png" Aspect="AspectFill" />
+
+        <Grid ColumnDefinitions="250,*">
+            <!-- Sidebar -->
+            <Grid Grid.Column="0" BackgroundColor="#2c3e50">
+                <Grid RowDefinitions="Auto,*,Auto" Padding="0,20">
+                    <!-- Header -->
+                    <VerticalStackLayout Grid.Row="0" Spacing="10" Padding="20,20">
+                        <Image Source="comelec.png" 
+                               HeightRequest="80" 
+                               WidthRequest="80" 
+                               HorizontalOptions="Center"/>
+                        <Label Text="Admin Dashboard" 
+                               TextColor="White" 
+                               FontSize="20" 
+                               FontAttributes="Bold"
+                               HorizontalOptions="Center"/>
+                    </VerticalStackLayout>
+
+                    <!-- Navigation Items -->
+                    <ScrollView Grid.Row="1">
+                        <VerticalStackLayout Spacing="5" Padding="0,20">
+                            <Button x:Name="DashboardButton"
+                                    Text="Dashboard" 
+                                    Style="{StaticResource ActiveSidebarButtonStyle}"
+                                    Clicked="OnNavigationButtonClicked"/>
+                        </VerticalStackLayout>
+                    </ScrollView>
+
+                    <!-- Logout Button -->
+                    <Button Grid.Row="2" 
+                            x:Name="LogoutButton"
+                            Text="Log Out" 
+                            Style="{StaticResource SidebarButtonStyle}"
+                            BackgroundColor="#e74c3c"
+                            Margin="20,10"
+                            Clicked="OnLogoutButtonClicked"/>
+                </Grid>
+            </Grid>
+
+            <!-- Main Content Area -->
+            <Grid Grid.Column="1" Margin="20">
+                <!-- White Rounded Box for Content -->
+                <Frame BackgroundColor="White"
+                       CornerRadius="20"
+                       Padding="20"
+                       HasShadow="True">
+                    <Frame.Shadow>
+                        <Shadow Brush="Black"
+                                Offset="5,5"
+                                Radius="10"
+                                Opacity="0.5"/>
+                    </Frame.Shadow>
+
+                    <!-- Main Content -->
+                    <Grid x:Name="MainContent">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <!-- Row for the label (Admin Dashboard) -->
+                            <RowDefinition Height="Auto"/>
+                            <!-- Row for the image -->
+                            <RowDefinition Height="Auto"/>
+                            <!-- Row for the label (Open Folder) -->
+                        </Grid.RowDefinitions>
+
+                        <!-- Label for Admin Dashboard -->
+                        <Label Text="Welcome to Admin Dashboard"
+                               FontSize="24"
+                               HorizontalOptions="Center"
+                               VerticalOptions="Start"
+                               Margin="0,20,0,0"
+                               Grid.Row="0"/>
+
+                        <!-- Folder Image on the left -->
+                        <Image Grid.Row="1" Source="folder.png"
+                               HorizontalOptions="Start"
+                               VerticalOptions="Center"
+                               HeightRequest="150"
+                               WidthRequest="150"
+                               Margin="35,0,0,0">
+                            <!-- Add margin to move it slightly from the left edge -->
+                            <Image.GestureRecognizers>
+                                <TapGestureRecognizer 
+                                 Tapped="OnFolderImageTapped"
+                                 NumberOfTapsRequired="1"/>
+                            </Image.GestureRecognizers>
+                        </Image>
+
+                        <!-- Label below the image, aligned to the left -->
+                        <Label Grid.Row="2" Text="Failed Attempts" 
+                               Margin="55,0,0,0"
+                               HorizontalOptions="Start"
+                               FontAttributes="Bold"/>
+                        <!-- Move the label to the left -->
+                    </Grid>
+
+
+                </Frame>
+            </Grid>
+        </Grid>
+    </Grid>
+</ContentPage>
